@@ -1,11 +1,15 @@
 # 🧠 Empath AI
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/frontend-React_%7C_Vite-61DAFB)
-![Python](https://img.shields.io/badge/backend-Python_%7C_FastAPI-3776AB)
-![Tailwind](https://img.shields.io/badge/styling-Tailwind_CSS-38B2AC)
+![Frontend](https://img.shields.io/badge/frontend-React_%7C_Vite-61DAFB)
+![Backend](https://img.shields.io/badge/backend-Python_%7C_FastAPI-3776AB)
+![Styling](https://img.shields.io/badge/styling-Tailwind_CSS-38B2AC)
 
-> **"An advanced neural interface designed to perceive, process, and respond to human emotion with deep contextual awareness."**
+Empath AI is an advanced emotionally-intelligent conversational system designed to perceive, interpret, and respond to human emotion with deep contextual awareness.
+
+Unlike traditional chatbots, Empath AI dynamically adapts its interface, tone, and conversational depth in real time based on detected emotional signals. It blends sentiment analysis, persistent memory, and Retrieval-Augmented Generation (RAG) to create interactions that feel personal, supportive, and context-aware.
+
+Whether a user expresses joy, anxiety, frustration, or sadness, the system adjusts its environment, response style, and visual atmosphere to align with the emotional state — creating a more immersive and human-centered AI experience.
 
 ---
 
