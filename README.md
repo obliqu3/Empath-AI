@@ -49,7 +49,7 @@ You must manually download the AI model file before starting the backend.
 Download:
 
 ```
-model.safetensors
+[model.safetensors](https://drive.google.com/file/d/1Y4jeY3LKOts4zcyb8G5UtMZRZtNqG9EN/view?usp=drive_link)
 ```
 
 Move it to:
