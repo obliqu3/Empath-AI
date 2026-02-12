@@ -94,7 +94,7 @@ python main.py
 Backend runs at:
 
 ```
-http://localhost:8000
+http://localhost:5173
 ```
 
 ---
