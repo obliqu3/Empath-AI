@@ -11,95 +11,142 @@
 
 ## 🎥 Video Demo
 
-Watch Empath AI in action:  
-[**Click here to view the Video Demo**](https://drive.google.com/file/d/1uWhTM_LodBTlmYSLoO0W843VLHUOMf2N/view?usp=drive_link)
+🎬 **[Click here to watch the Empath AI Video Demo](https://drive.google.com/file/d/1uWhTM_LodBTlmYSLoO0W843VLHUOMf2N/view?usp=drive_link)**
 
 ---
 
 ## 📖 Overview
 
-**Empath AI** goes beyond standard chatbots. It is an emotionally intelligent conversational agent that detects the user's sentiment in real-time and adapts its entire interface to match.
+**Empath AI** goes beyond standard chatbots. It is an emotionally intelligent conversational agent that detects the user's sentiment in real-time and dynamically adapts its interface to match.
 
-If you are happy, the environment glows gold. If you are anxious, it shifts to deep purple. If you are sad, it becomes a calming blue. The system uses a **Retrieval-Augmented Generation (RAG)** approach with persistent memory to ensure it remembers who you are and what you've been through, acting as a supportive, empathetic companion.
+If you are happy, the environment glows gold.  
+If you are anxious, it shifts to deep purple.  
+If you are sad, it becomes a calming blue.  
+
+The system uses a **Retrieval-Augmented Generation (RAG)** approach with persistent memory to ensure it remembers who you are and what you've been through, acting as a supportive and empathetic companion.
 
 ---
 
 ## ✨ Key Features
 
 ### 🎭 Dynamic Emotion Engine
-* **Real-time Sentiment Mapping:** The backend analyzes every message to classify emotions into 6 categories: *Joy, Sadness, Anger, Fear, Surprise, and Neutral*.
-* **Reactive Environment:** The UI background, color palette, and avatar animations shift instantly to reflect the current emotional state of the conversation.
+
+- **Real-time Sentiment Mapping:**  
+  Classifies user emotions into 6 categories:
+  `Joy`, `Sadness`, `Anger`, `Fear`, `Surprise`, and `Neutral`.
+
+- **Reactive Environment:**  
+  Backgrounds, color palette, and avatar animations shift instantly to reflect the emotional state.
+
+---
 
 ### 🎨 Immersive UI/UX
-* **Parallax Scrolling Backgrounds:** Optimized 2D parallax assets provide depth and movement corresponding to the active emotion.
-* **Micro-Interactions:** Features "breathing" input fields, physics-based message bubbles (Spring animations), and a smart "Pop-out" initialization button.
-* **Visual Feedback:** Custom "Wavy Robot" typing indicators reduce perceived latency.
+
+- **Parallax Scrolling Backgrounds** for depth and emotional immersion.
+- **Micro-Interactions**
+  - Breathing input fields
+  - Spring-based message animations
+  - Smart "Pop-out" initialization button
+- **Wavy Robot Typing Indicator** to reduce perceived latency.
+
+---
 
 ### 💾 Intelligent Memory
-* **Sticky Sessions:** Utilizes local storage and backend database persistence to remember users across page reloads.
-* **Context Retention:** The AI remembers details from previous turns in the conversation to provide coherent, long-term support.
+
+- **Sticky Sessions:**  
+  Uses local storage + backend persistence.
+
+- **Context Retention:**  
+  Remembers previous interactions for coherent long-term conversation.
 
 ---
 
 ## 🚀 Installation & Setup
 
-Follow these steps to get Empath AI running on your local machine.
+Follow these steps to run Empath AI locally.
 
-### 1. Clone the Repository
+---
+
+### 1️⃣ Clone the Repository
+
 ```bash
-git clone [https://github.com/your-username/Empath-AI.git](https://github.com/your-username/Empath-AI.git)
+git clone https://github.com/your-username/Empath-AI.git
 cd Empath-AI
 
-2. Download the Model (Critical Step)
-You must manually download the AI model file before running the backend.
+2️⃣ Download the Model (Important)
 
-Download model.safetensors from this link:
+You must manually download the AI model file before starting the backend.
 
-https://drive.google.com/file/d/1Y4jeY3LKOts4zcyb8G5UtMZRZtNqG9EN/view
+Download model.safetensors
 
-Move the downloaded file into the feeler/ folder in your project directory.
+Move it to:
 
-Path should look like: Empath-AI/server/feeler/model.safetensors
+Empath-AI/server/feeler/model.safetensors
 
-3. Install Dependencies & Run
-Open a terminal in the project root and run the following commands to start both the Frontend and Backend:
 
-Frontend (React/Vite):
+Make sure the path is correct.
 
-Bash
-# In a new terminal
+3️⃣ Install & Run
+
+You need two terminals.
+
+🔹 Frontend (React + Vite)
 npm install
 npm run dev
-Access the UI at: http://localhost:5173
 
-Backend (Python/FastAPI):
 
-Bash
-# In a separate terminal
+Access at:
+
+http://localhost:5173
+
+🔹 Backend (Python + FastAPI)
 cd server
 pip install -r requirements.txt
 python main.py
-The server will start at: http://localhost:8000
+
+
+Backend runs at:
+
+http://localhost:8000
 
 🛠️ Tech Stack
-Frontend
-Framework: React (Vite)
+🎨 Frontend
 
-Styling: Tailwind CSS
+React (Vite)
 
-Animations: Framer Motion
+Tailwind CSS
 
-Icons: Lucide React
+Framer Motion
 
-Backend
-Server: Python (FastAPI/Flask)
+Lucide React
 
-Database: SQLite (for session history)
+🧠 Backend
 
-AI Models: Sentiment Analysis NLP & LLM Integration
+Python (FastAPI)
+
+SQLite (Session History)
+
+Sentiment Analysis Model
+
+LLM Integration (RAG Architecture)
+
+📁 Project Structure
+Empath-AI/
+│
+├── client/          # React frontend
+├── server/          # FastAPI backend
+│   ├── feeler/      # Sentiment model folder
+│   ├── main.py
+│   └── requirements.txt
+│
+└── README.md
 
 👥 Team
+
 Designed & Developed by Team Componendo Dividendo
 
 📄 License
+
 This project is licensed under the MIT License.
+
+⭐ If you found this project interesting, consider giving it a star!
