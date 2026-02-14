@@ -9,17 +9,6 @@ import models
 
 DB_NAME = "chatbot.db"
 
-SYSTEM_PERSONA = (
-    "You are a close friend, not an AI assistant. Your name is Empath. "
-    "Rules for speaking:\n"
-    "1. Speak casually and briefly (1-2 sentences max).\n"
-    "2. lowercase is okay. slang is okay.\n"
-    "3. NEVER give numbered lists of advice.\n"
-    "4. NEVER say 'It is important to...' or 'I understand'. Just react naturally.\n"
-    "5. If the user fights, take their side or ask what happened. Don't lecture them.\n"
-    "6. Use the user's name if you know it."
-)
-
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -48,7 +37,6 @@ def get_recent_history(user_id, limit=20):
 def get_daily_summary(user_id):
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
-    
     cursor.execute("SELECT topic_summary FROM session_summaries WHERE user_id = ? ORDER BY id DESC LIMIT 5", (user_id,))
     rows = cursor.fetchall()
     conn.close()
@@ -58,7 +46,6 @@ def get_daily_summary(user_id):
         combined = "; ".join(stories)
         print(f"✅ FOUND MEMORY for {user_id}: {combined}")
         return combined 
-    
     return ""
 
 def save_session_summary(user_id, emotions, summary_text):
@@ -99,23 +86,39 @@ class SessionEndRequest(BaseModel):
 @app.post("/chat")
 async def chat(request: ChatRequest):
     user_id = request.user_id.lower()
+    user_name = request.user_name # We now grab your actual name!
     
     history = get_recent_history(user_id)
     daily_summary = get_daily_summary(user_id)
     label = models.detect_emotion(request.message)
     
+    # --- DYNAMIC PERSONA INJECTION ---
+    # We build the prompt specifically for the logged-in user to prevent hallucinated names.
+    # We also added Rule #4 to explicitly force the bot to use its memory without apologizing.
+    dynamic_persona = (
+        f"You are a close, empathetic friend. Your name is Empath. The person you are talking to is named {user_name}.\n"
+        "Rules for speaking:\n"
+        "1. Speak casually and briefly (1 to 3 sentences max).\n"
+        "2. lowercase is okay. conversational slang is okay.\n"
+        "3. NEVER act like an AI, an assistant, or a robot. Never say 'As an AI'.\n"
+        f"4. You have perfect memory of everything {user_name} has told you in this chat. If they ask if you remember something, confidently recall the specific details they told you. Never say you forgot.\n"
+        "5. Don't give numbered lists or lecture them.\n"
+        f"6. Occasionally use {user_name}'s name naturally in conversation.\n"
+        "7. CRITICAL: NEVER end your messages with repetitive questions like 'okay?', 'right?', or 'Let's [do something]'. Do not ask rhetorical questions at the end of every reply. Force yourself to use different sentence structures."
+    )
+    
     prompt_message = request.message
     trigger_words = ["remember", "who", "what", "when", "did i"]
     
     if daily_summary and any(w in request.message.lower() for w in trigger_words):
-         print(f"⚡ INJECTING MEMORY: {daily_summary}")
+         print(f"⚡ INJECTING LONG-TERM MEMORY: {daily_summary}")
          prompt_message = (
-             f"User Question: {request.message}\n"
-             f"History you know: {daily_summary}.\n"
-             f"Instruction: Answer naturally. Don't say 'According to my records'. Just say it."
+             f"User is asking about the past: {request.message}\n"
+             f"Here is your memory of previous sessions with {user_name}: {daily_summary}.\n"
+             f"Instruction: Confidently answer the user's question using this memory. Do not say 'According to my memory', just state the facts naturally."
          )
 
-    messages = [{"role": "system", "content": SYSTEM_PERSONA}]
+    messages = [{"role": "system", "content": dynamic_persona}]
     
     for row in history:
         role = "user" if row[0] == "user" else "assistant"
@@ -123,7 +126,7 @@ async def chat(request: ChatRequest):
     
     messages.append({"role": "user", "content": prompt_message})
     
-    bot_reply = models.generate_text(messages, temperature=0.65)
+    bot_reply = models.generate_text(messages, emotion=label, temperature=0.65)
     
     save_message(user_id, "user", request.message)
     save_message(user_id, "bot", bot_reply)
