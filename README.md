@@ -48,16 +48,16 @@ cd Empath-AI
 
 ## 2️⃣ Download the Model (Important)
 
-You must manually download the AI model file before starting the backend.
+You must manually download the AI model files before starting the backend.
 
-Download:
+Download the feeler:
 
-[model.safetensors](https://drive.google.com/file/d/1Y4jeY3LKOts4zcyb8G5UtMZRZtNqG9EN/view?usp=drive_link)
+[Feeler Model](https://huggingface.co/senko3485/feeler/tree/main)
 
-Move it to:
+Move all the files to:
 
 ```
-Empath-AI/server/feeler/model.safetensors
+Empath-AI/server/feeler/
 ```
 
 Make sure the path is correct.
