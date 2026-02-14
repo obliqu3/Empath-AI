@@ -64,7 +64,50 @@ Make sure the path is correct.
 
 ---
 
-## 3️⃣ Install & Run
+---
+
+## 3️⃣ Add Your Huggging Face Token (Required)
+
+This project uses Hugging Face models that require authentication.
+
+### 🔹 Step 1: Get Your Token
+
+1. Go to: https://huggingface.co/settings/tokens  
+2. Click **New token**  
+3. Select **Read access**  
+4. Copy the generated token  
+
+---
+
+### 🔹 Step 2: Add Token to Project Files
+
+Open the following files:
+
+```
+server/auth.py
+server/models.py
+```
+
+Add your token:
+
+```python
+HF_TOKEN = "your_huggingface_token_here"
+```
+
+If the variable already exists, replace the empty string with your token.
+
+---
+
+### 🔹 Step 3: Save Files
+
+Restart the backend after adding the token.
+
+---
+
+⚠️ **Important:** Never commit your token to GitHub.  
+If deploying, use environment variables instead.
+
+## 4️⃣ Install & Run
 
 You need **two terminals**.
 
