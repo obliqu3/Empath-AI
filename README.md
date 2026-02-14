@@ -104,9 +104,6 @@ Restart the backend after adding the token.
 
 ---
 
-⚠️ **Important:** Never commit your token to GitHub.  
-If deploying, use environment variables instead.
-
 ## 4️⃣ Install & Run
 
 You need **two terminals**.
@@ -163,6 +160,9 @@ http://localhost:5173
 ## 👥 Team
 
 Designed & Developed by **Team Componendo Dividendo**
+Omkar Pawar - https://github.com/senko-6
+Tanisha Nevrekar - https://github.com/Nutella006
+Shlok Mirji - https://github.com/obliqu3
 
 ---
 
