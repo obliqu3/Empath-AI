@@ -4,7 +4,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForSequen
 GEN_MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.3" 
 EMOTION_MODEL_NAME = "SamLowe/roberta-base-go_emotions"
 
-HF_TOKEN = "" 
+HF_TOKEN = "" #Paste your HuggingFaces Token here
 
 gen_model = None
 gen_tokenizer = None
@@ -41,7 +41,7 @@ def load_models():
     emotion_tokenizer = AutoTokenizer.from_pretrained(EMOTION_MODEL_NAME)
     emotion_model = AutoModelForSequenceClassification.from_pretrained(EMOTION_MODEL_NAME).to("cuda")
     
-    print("✅ System Ready!")
+    print("System Ready!")
 
 def detect_emotion(text):
     if not emotion_model: return "neutral"
@@ -56,12 +56,12 @@ def detect_emotion(text):
         return "annoyance"
     return label
 
-def generate_text(messages, max_tokens=150, temperature=0.7):
+def generate_text(messages, emotion="neutral", max_tokens=150, temperature=0.7):
     if not gen_model: return "Loading..."
     
     formatted_messages = []
     system_instruction = ""
-    
+
     for m in messages:
         if m['role'] == 'system':
             system_instruction = m['content']
@@ -71,16 +71,23 @@ def generate_text(messages, max_tokens=150, temperature=0.7):
     for m in messages:
         if m['role'] == 'user':
             content = m['content']
-            if not first_user_found and system_instruction:
-                content = f"Instruction: {system_instruction}\n\nUser Question: {content}"
+            if not first_user_found:
+                context_str = f"User is feeling: {emotion.upper()}"
+                
+                if system_instruction:
+                    content = f"Instruction: {system_instruction}\nContext: {context_str}\n\nUser Message: {content}"
+                else:
+                    content = f"Context: {context_str}\n\nUser Message: {content}"
+                
                 first_user_found = True
+            
             formatted_messages.append({"role": "user", "content": content})
+            
         elif m['role'] == 'assistant':
             formatted_messages.append({"role": "assistant", "content": m['content']})
-            
     prompt = gen_tokenizer.apply_chat_template(formatted_messages, tokenize=False, add_generation_prompt=True)
     inputs = gen_tokenizer(prompt, return_tensors="pt").to("cuda")
-    
+
     with torch.no_grad():
         outputs = gen_model.generate(
             **inputs, 
