@@ -160,9 +160,9 @@ http://localhost:5173
 ## 👥 Team
 
 Designed & Developed by **Team Componendo Dividendo**
-Omkar Pawar - https://github.com/senko-6
-Tanisha Nevrekar - https://github.com/Nutella006
-Shlok Mirji - https://github.com/obliqu3
+## Omkar Pawar - https://github.com/senko-6
+## Tanisha Nevrekar - https://github.com/Nutella006
+## Shlok Mirji - https://github.com/obliqu3
 
 ---
 
