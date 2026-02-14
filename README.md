@@ -133,7 +133,7 @@ http://localhost:5173
 ```bash
 cd server
 pip install -r requirements.txt
-python main.py
+python server.py
 ```
 
 Backend runs at:
