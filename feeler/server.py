@@ -44,7 +44,7 @@ def get_daily_summary(user_id):
     stories = [row[0] for row in rows if row[0]]
     if stories:
         combined = "; ".join(stories)
-        print(f"✅ FOUND MEMORY for {user_id}: {combined}")
+        print(f"FOUND MEMORY for {user_id}: {combined}")
         return combined 
     return ""
 
@@ -86,15 +86,12 @@ class SessionEndRequest(BaseModel):
 @app.post("/chat")
 async def chat(request: ChatRequest):
     user_id = request.user_id.lower()
-    user_name = request.user_name # We now grab your actual name!
+    user_name = request.user_name
     
     history = get_recent_history(user_id)
     daily_summary = get_daily_summary(user_id)
     label = models.detect_emotion(request.message)
     
-    # --- DYNAMIC PERSONA INJECTION ---
-    # We build the prompt specifically for the logged-in user to prevent hallucinated names.
-    # We also added Rule #4 to explicitly force the bot to use its memory without apologizing.
     dynamic_persona = (
         f"You are a close, empathetic friend. Your name is Empath. The person you are talking to is named {user_name}.\n"
         "Rules for speaking:\n"
@@ -111,7 +108,7 @@ async def chat(request: ChatRequest):
     trigger_words = ["remember", "who", "what", "when", "did i"]
     
     if daily_summary and any(w in request.message.lower() for w in trigger_words):
-         print(f"⚡ INJECTING LONG-TERM MEMORY: {daily_summary}")
+         print(f"INJECTING LONG-TERM MEMORY: {daily_summary}")
          prompt_message = (
              f"User is asking about the past: {request.message}\n"
              f"Here is your memory of previous sessions with {user_name}: {daily_summary}.\n"
@@ -147,7 +144,7 @@ async def end_session(request: SessionEndRequest):
     summary = models.generate_text(summary_messages, max_tokens=60, temperature=0.1)
     
     save_session_summary(user_id, request.emotions, summary)
-    print(f"📝 Summary Saved for {user_id}: {summary}") 
+    print(f"Summary Saved for {user_id}: {summary}") 
     
     return {"status": "saved"}
 
